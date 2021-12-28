@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+        <input type="text" v-model='age' />
+        <p>i'm 15</p>
+        <button v-on:click="sumAge">up</button>
+    </div>
+    <script>
+        const vu = new Vue({
+            el: '#app', data: {age: 15},
+            methods: {
+                sumAge: function() {
+
+                },
+            }
+        });
+        console.dir(vu)
+    </script>
+</body>
+</html>
