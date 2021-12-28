@@ -11,16 +11,27 @@
     <div id="app">
         
         <input type="text" v-model='age' />
-        <p>i'm 15</p>
+        <p>i'm {{age}}</p>
+        <p>{{broAge}}</p>
         <button v-on:click="sumAge">up</button>
     </div>
     <script>
         const vu = new Vue({
-            el: '#app', data: {age: 15},
+            el: '#app', 
+            data: {age: 15},
+            computed: {
+                broAge() {
+                    return `my bro age ${this.age + 2}`;
+                }
+            },
             methods: {
-                sumAge: function() {
-
+                sumAge() {
+                    this.age++
                 },
+                getName(){}
+            },
+            created: function() {
+
             }
         });
         console.dir(vu)
