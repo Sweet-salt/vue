@@ -78,3 +78,81 @@ watch: {
 ### 정리
 - v-if -> 전환 비용이 높음 / v-show -> 초기 렌더링 비용 높음
 - 자주 전환 -> v-show / 런타임 시 조건이 변경되지 않으면 -> v-if 
+
+
+# 오류 발생
+- v-for에 대한 연습도중 고유한 id값을 가져오기 위해 shortid를 사용 하려했으나 오류가 발생함
+- 발생한 오류는 'shortid' is defined but never used  no-unused-vars
+## 해결법
+- 코드를 짜는 도중에 발생한 오류 그냥 숙련도 이슈 하지만 never used  no-unused-vars 오류 발생시 해결밥법을 구글에서 찾아봄 나중에 혹시나를 위해 적어둠 
+``` 해결방법 - package.json에 eslintConfig를 추가
+{
+    "name": "your-app-name",
+    "dependencies": { ... },
+    "devDependencies": { ... },
+    "eslintConfig": { // Add this <-----
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": { // rules configuration here <-----
+            "no-unused-vars": "off" 
+        }
+    }
+}
+```
+
+- eslint 구성을 에 저장하기로 선택한 경우 키 .eslintrc.js를 추가하기만 하면 rules됩니다.
+```
+module.exports = {
+    ...
+    rules: {
+        "no-unused-vars": "off"
+    }
+}
+```
+- 이거 오류에 대해 생각하느라 1시간을 써버림 코드를 짤 때에는 신중하게 한번더 생각하자.
+
+## 고유한 값이 필요할 때 만드는 법
+```
+npm i -D shortid
+```
+```
+<template>
+  <ul>
+    <li
+      v-for="x in newX"
+      :key="x.id"
+    >
+      {{x.name}}-{{x.id}}
+    </li>
+  </ul>
+</template>
+
+<script>
+  import shortid from 'shortid'
+  export default{
+    data(){
+      return {
+        arr: [ 'apple', 'banana', 'melon'],
+        
+    }
+  },
+  computed: {
+    newX(){
+      return this.arr.map(x =>
+       ({id: shortid.generate(),
+        name: x})
+      )
+    }
+  }
+}
+</script>
+```
