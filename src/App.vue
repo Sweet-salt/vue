@@ -1,31 +1,29 @@
 <template>
-  <h1 
-    :[attr]="'active'"
-    @[event]="add"
-  >
-    {{msg}}
-  </h1>
+  <h1>{{reversedMsg}}</h1>
+  
 </template>
 
 <script>
+
   export default{
     data(){
       return {
-        msg: 'active',
-        attr: 'class',
-        event: 'click'
+        msg: 'hello'
       }
     },
-    methods: {
-      add() {
-        this.msg += '!!!'
+    computed: {
+      reversedMsg() {
+        return this.msg.split('').reverse().join('') 
+      }
+    },
+    methods:{
+      reverseMsg() {
+        return this.msg.split('').reverse().join('')
       }
     }
-  }
+}
 </script>
 
-<style scoped>
-  .active{
-    color: rgb(47, 206, 206);
-  }
+<style>
+
 </style>
