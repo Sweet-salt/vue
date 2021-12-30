@@ -121,6 +121,13 @@ module.exports = {
 ```
 - 이거 오류에 대해 생각하느라 1시간을 써버림 코드를 짤 때에는 신중하게 한번더 생각하자.
 
+# 오류발생2
+- template 안에는 둘 이상의 루트 노드를 가질 수 없음
+
+## 해결법
+- div 태그로 전체 내용을 감싸기 
+
+
 ## 고유한 값이 필요할 때 만드는 법
 ```
 npm i -D shortid
@@ -179,4 +186,50 @@ Vue.component('product-list', {
 ```
 - 함수로 등록하는 이유는 private 하게 만들기 위해서임
 
-### 지역 컴포넌트 
+### 이벤트 핸들링
+- 메소드 체이닝 가능.
+- once -> 한번만 실행
+- passive -> 사용자의 경험을 향상시켜주고 싶을 때 사용
+
+### 이벤트 버블링
+- 이벤트가 상위요소로 타고 타고 올라가는 것.
+- 방지법 : stopPropagation()
+
+### 이벤트 캡처링
+- capture 
+- 버블링과 반대되는 개념
+
+### 양방향 데이터 바인딩
+```
+<template>
+  <div>
+    <h1>{{ msg }}</h1>
+    <input 
+    type="text"
+    v-model="msg"
+    />
+    <input type="checkbox"
+    v-model="checked"
+    >
+  </div>
+</template>
+
+<script>
+  
+  export default{
+    data() {
+      return {
+        msg: 'Hello World!',
+        checked: false
+      }
+    }
+}
+</script>
+```
+- 주의사항
+  - v-model 사용시에는 한글은 바로바로 적용이 안됨
+  ```
+  :value="msg"
+  @input="msg = $event.target.value"
+  ```
+  - 이걸 대신 사용하자.
