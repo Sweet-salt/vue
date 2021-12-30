@@ -68,6 +68,7 @@ watch: {
 
 ## v-if VS v-show
 - v-if는 실제 조건부 렌더링 
+- DOM자체를 생성 X
 - v-if는 게으르다.
     - 조건이 거짓 -> 아무것도 안함.
     - 조건 참 -> 렌더링
@@ -156,3 +157,26 @@ npm i -D shortid
 }
 </script>
 ```
+
+#### v-if < display  <   visibility     <     opacity
+     x      dom/cssom    dom/cssom/rendertree
+
+
+## 컴포넌트
+- 공통으로 사용하기 위해서 사용.
+- 특별한 역할을 부여하기 위해 사용.
+
+### 전역 컴포넌트
+```
+Vue.component('product-list', {
+    template: '<button>이런식</button>',
+    data(){
+        return {
+            //여기다 작성 
+        }
+    }
+});
+```
+- 함수로 등록하는 이유는 private 하게 만들기 위해서임
+
+### 지역 컴포넌트 

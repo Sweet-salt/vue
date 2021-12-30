@@ -1,40 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- <script src="main.js" type="module"></script> -->
+<style>
+* {margin:0; padding:0}
+li {list-style: none;}
+body {padding:30px;}
+.list {margin:20px 0;}
+.list > li {width:200px; border:1px solid gray; padding:10px;}
+.list > li > * {display:block}
+.list > li > img {width:200px; margin-bottom:20px;}
+.list > li > strong {font-size:20px; color:#666; margin-bottom:10px}
+.list > li > span {margin-bottom:10px;}
+</style>
 </head>
 <body>
-    <div id="app">
-        
-        <input type="text" v-model='age' />
-        <p>i'm {{age}}</p>
-        <p>{{broAge}}</p>
-        <button v-on:click="sumAge">up</button>
-    </div>
-    <script>
-        const vu = new Vue({
-            el: '#app', 
-            data: {age: 15},
-            computed: {
-                broAge() {
-                    return `my bro age ${this.age + 2}`;
-                }
-            },
-            methods: {
-                sumAge() {
-                    this.age++
-                },
-                getName(){}
-            },
-            created: function() {
 
-            }
-        });
-        console.dir(vu)
-    </script>
+<div id="app">
+    <h1>Sales Product : cart({{ total }}) - {{ totalPrice }}원</h1>
+    
+        <product-list 
+            v-bind:items-data="chips"
+            v-on:pick-up="parentWork"
+        ></product-list>
+    
+    
+</div>
+
+<script>
+// Vue.component('product-list', {
+//     template: `
+//         <li>
+//             <img src="images/mango.jpg" />
+//             <strong>천연 오가닉 사과칩</strong>
+//             <span>깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.</span>
+//             <b>2,000원</b>
+//         </li>
+//     `,
+//     data() {
+//         return {
+//             age:24
+//         }
+//     },
+// });
+const productList = {
+    template: `
+        <ul class="list" >
+            <li v-for="(item, i) in itemsData" v-bind:key="i">
+                <img v-bind:src="item.img" />
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.desc }}</span>
+                <b>{{ item.price }} 원</b>
+                <button v-on:click="childWork(item.price)">구입</button>
+            </li>
+        </ul>
+    `,
+    props:['itemsData'],
+    methods: {
+        childWork(price) {
+            this.$emit('pick-up', price);
+        }
+    }
+}
+
+const 붕어빵 = new Vue({
+    el: '#app', 
+    components: {productList},
+    data: {
+        total: 0,
+        totalPrice:0,
+        chips:[{
+                    img:`img/mango.jpg`,
+                    title:`자연그대로 망고칩`,
+                    desc:`단맛이 그대로 살아있는 망고칩입니다.`,
+                    price:2500
+                },
+                {
+                    img:`img/apple.jpg`,
+                    title:`천연 오가닉 사과칩`,
+                    desc:`깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
+                    price:2000
+                },
+                {
+                    img:`img/jujube.jpg`,
+                    title:`아이깨끗 대추칩`,
+                    desc:`새콤함이 살아있는 반건조 대추그대로.`,
+                    price:3000
+                }
+            ]
+    },
+    methods: {
+        parentWork(price) {
+            console.log('수신했다!');
+            this.total++;
+            this.totalPrice += price;
+        }
+    }
+});
+</script>
 </body>
 </html>
