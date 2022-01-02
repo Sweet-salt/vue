@@ -236,3 +236,9 @@ Vue.component('product-list', {
 
 #### 컴포넌트 - 속성 상속
 - template안에 루트 요소가 2개일 경우에는 클래스를 어떤 요소가 받게 될 지 알수가 없음 그래서 :class="$attrs.class" 이런식으로 클래스를 넣어줌
+
+
+### 약어
+- v-bind: => :
+- v=on: => @
+- v-slot: => #
