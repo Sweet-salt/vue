@@ -242,3 +242,9 @@ Vue.component('product-list', {
 - v-bind: => :
 - v=on: => @
 - v-slot: => #
+
+
+### Ref
+- 참조를 위해서 사용
+- mounted(html에 연결된 직후)에 사용 가능함. 
+- 클래스에 클래스이름적고 refs.classname으로 참조가 가능하다.
